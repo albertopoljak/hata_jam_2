@@ -1,8 +1,6 @@
-import logging
-import aiosqlite
 from pathlib import Path
 
-logger = logging.getLogger(__name__)
+import aiosqlite
 
 
 class DatabaseHandler:
@@ -17,15 +15,12 @@ class DatabaseHandler:
 
     @classmethod
     async def create_connection(cls) -> aiosqlite.core.Connection:
-        if cls._connection is not None:
-            return cls._connection
-        else:
+        if cls._connection is None:
             return await cls._create_instance()
 
     @classmethod
     async def _create_instance(cls) -> aiosqlite.core.Connection:
         cls._connection = await cls._get_connection()
-        logger.info("Connection to database established.")
         return cls._connection
 
     @classmethod
@@ -37,7 +32,6 @@ class DatabaseHandler:
         if Path(cls.DB_NAME).is_file():
             return await aiosqlite.connect(cls.DB_NAME)
         else:
-            logger.info("Database not found! Creating fresh ...")
             return await DatabaseHandler._create_database(cls.DB_NAME)
 
     @staticmethod
@@ -57,5 +51,4 @@ class DatabaseHandler:
         )
 
         await conn.commit()
-        logger.info("Database successfully created!")
         return conn
