@@ -42,11 +42,9 @@ class DatabaseHandler:
         """
         conn = await aiosqlite.connect(path)
         await conn.execute(
-            """CREATE TABLE MEMBERS(
-                USER_ID UNSIGNED BIG INT,
-                GUILD_ID UNSIGNED BIG INT,
-                COINS UNSIGNED INT DEFAULT 1,
-                UNIQUE(USER_ID, GUILD_ID)
+            """CREATE TABLE USERS(
+                ID UNSIGNED BIG INT PRIMARY KEY,
+                COINS UNSIGNED INT DEFAULT 1
             )"""
         )
 
