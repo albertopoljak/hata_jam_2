@@ -21,15 +21,6 @@ async def ready(client):
     await DatabaseHandler.create_connection()
 
 
-@braindead.commands
-async def ping(client, message):
-    """Simple ping command for debug purposes."""
-    start = perf_counter()
-    msg = await braindead.message_create(message.channel, "Ping!")
-    difference = perf_counter() - start
-    await braindead.message_edit(msg, f":ping_pong: {difference*100:.2f}ms")
-
-
 EXTENSION_LOADER.add_default_variables(braindead=braindead)
 
 for name in os.listdir("modules"):
