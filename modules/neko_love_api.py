@@ -4,11 +4,10 @@ from constants import TEST_GUILD
 
 
 braindead: discord.Client
-BASE_API_URL = "https://neko-love.xyz/api/v1/"
 
 
-async def api_get(base_url: str, endpoint: str) -> str:
-    response = await braindead.http.get(f"{base_url}{endpoint}")
+async def neko_api_get(endpoint: str) -> str:
+    response = await braindead.http.get(f"https://neko-love.xyz/api/v1/{endpoint}")
     return (await response.json())["url"]
 
 
@@ -19,7 +18,7 @@ async def neko_image(
         category: ({"Kitsune": "kitsune", "NSFW": "nekolewd"}, "Which category?") = "neko"
 ):
     """Get image of neko."""
-    url = await api_get(BASE_API_URL, category)
+    url = await neko_api_get(category)
     embed = discord.Embed()
     embed.add_image(url)
     return embed
