@@ -5,6 +5,7 @@ from hata import discord
 
 
 TEST_GUILD = discord.Guild.precreate(633747521746763796)
+GREEN_COLOR = discord.Color.from_html("#7CFC00")
 
 
 class ShopItem(Enum):

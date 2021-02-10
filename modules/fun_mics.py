@@ -3,7 +3,7 @@ from collections import namedtuple
 
 from hata import discord, DiscordException
 
-from constants import TEST_GUILD
+from constants import TEST_GUILD, GREEN_COLOR
 
 
 braindead: discord.Client
@@ -172,7 +172,7 @@ async def catify(client, event, user: ("user", "Specific user") = None):
     return discord.Embed(
         title="Catified!",
         description=f"{previous_nickname} is now known as **{choice.name}** meaning *{choice.meaning}*.",
-        color=discord.Color.green
+        color=GREEN_COLOR
     )
 
 
@@ -180,6 +180,4 @@ async def catify(client, event, user: ("user", "Specific user") = None):
 async def best_neko(client, event):
     """Shows you the best neko girl!"""
     best_neko_user = await client.user_get(184734189386465281)
-    embed = discord.Embed(title=best_neko_user.full_name)
-    embed.add_image(url=best_neko_user.avatar_url_as(size=4096))
-    return embed
+    return discord.Embed(title=best_neko_user.full_name).add_image(url=best_neko_user.avatar_url_as(size=4096))

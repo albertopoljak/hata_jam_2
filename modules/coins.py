@@ -31,7 +31,7 @@ async def change_coins_helper(user_id: int, *, num_coins: int) -> None:
     await DatabaseHandler.get_connection().commit()
 
 
-@braindead.events()
+@braindead.events
 async def message_create(client, message: Message):
     if message.guild is None or message.author.is_bot:
         return
