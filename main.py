@@ -1,5 +1,4 @@
 import os
-from time import perf_counter
 
 from hata import Client, start_clients
 from hata.ext.slash import setup_ext_slash
