@@ -157,6 +157,8 @@ neko_names = (
 @braindead.interactions(guild=TEST_GUILD)
 async def catify(client, event, user: ("user", "Specific user") = None):
     """Change your or someone else nickname to random cat name."""
+    if event.guild is None:
+        return "Please use this command inside guild."
 
     choice = random.choice(neko_names)
     if user is None:
