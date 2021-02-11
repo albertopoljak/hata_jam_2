@@ -1,14 +1,11 @@
+from urllib import parse
+
 from hata import discord
 
 from constants import TEST_GUILD
 
 
 braindead: discord.Client
-
-
-async def neko_api_get(endpoint: str) -> str:
-    response = await braindead.http.get(f"https://neko-love.xyz/api/v1/{endpoint}")
-    return (await response.json())["url"]
 
 
 @braindead.interactions(guild=TEST_GUILD)
@@ -18,7 +15,14 @@ async def neko_image(
         category: ({"Kitsune": "kitsune", "NSFW": "nekolewd"}, "Which category?") = "neko"
 ):
     """Get image of neko."""
-    url = await neko_api_get(category)
-    embed = discord.Embed()
-    embed.add_image(url)
-    return embed
+    response = await client.http.get(f"https://neko-love.xyz/api/v1/{category}")
+    url = (await response.json())["url"]
+    return discord.Embed().add_image(url)
+
+
+@braindead.interactions(guild=TEST_GUILD)
+async def which_cat(client, event):
+    """Which cat are you today?"""
+    encoded_name = parse.quote(event.user.full_name, safe="")
+    response = await client.http.get(f"https://cataas.com/cat/says/{encoded_name}")
+    return discord.Embed().add_image(str(response.url))
