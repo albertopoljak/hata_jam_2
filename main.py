@@ -17,7 +17,6 @@ setup_ext_slash(braindead)
 @braindead.events
 async def ready(client):
     print(f"{client:f} logged in.")
-    await DatabaseHandler.create_connection()
 
 
 EXTENSION_LOADER.add_default_variables(braindead=braindead)
@@ -26,5 +25,6 @@ for name in os.listdir("modules"):
     if name.endswith(".py"):
         EXTENSION_LOADER.add(f"modules.{name[:-3]}")
 
+braindead.loop.run(DatabaseHandler.create_connection())
 EXTENSION_LOADER.load_all()
 start_clients()
